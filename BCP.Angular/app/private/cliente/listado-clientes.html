@@ -1,3 +1,50 @@
 ﻿<div ng-controller="clienteController as vm" class="page container-fluid ng-scope">
 
+    <div class="d-flex">
+        <div class="align-self-baseline">
+            <h4 class="mt-1">Clientes</h4>
+        </div>
+        <div class="align-self-baseline ml-3">
+            <label class="text-muted">{{vm.listaClientes.length}} registro(s) encontrado(s)</label>
+        </div>
+        <div class="ml-auto align-self-baseline">
+            <button class="btn btn-primary" type="button" ng-click="vm.onButtonNuevoClienteClick()"><span class="fas fa-plus mr-2"></span>Nuevo</button>
+        </div>
+    </div>
+
+    <table class="table table-borderless table-hover table-sm mt-3">
+
+        <thead class="thead">
+            <tr class="d-flex mb-2">
+                <th class="col-6 col-lg-4">Nombre</th>
+                <th class="d-none d-lg-inline-flex col-lg-2 justify-content-center">Tipo doc.</th>
+                <th class="col-3 text-center">Documento</th>
+                <th class="col-3 text-center">NroCelular</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="d-flex" ng-class="{ 'one-row-body': vm.listaClientes.length === 1 }" ng-repeat="cliente in vm.listaClientes">
+                <td class="col-6 col-lg-4 d-flex align-items-center">{{::cliente.primerApellido}} {{::cliente.segundoApellido}}, {{::cliente.nombres}}</td>
+                <td class="d-none d-lg-inline-flex col-lg-2 justify-content-center align-items-center">{{::cliente.descripcionTipoDocumento}}</td>
+                <td class="col-3 d-flex justify-content-center align-items-center">{{::cliente.nroDocumento}}</td>
+                <td class="col-3 d-flex justify-content-center align-items-center">{{::cliente.nroCelular}}</td>
+            </tr>
+        </tbody>
+
+    </table>
+
+    <modal-directive panel-header-text="{{vm.etiquetaHeaderModal}}"
+                     id-panel="{{vm.idPanelMantenimientoCliente}}">
+        <cliente-directive cliente="vm.clienteSeleccionado"
+                           label-button-submit="{{vm.etiquetaSubmitButtonModal}}"
+                           on-button-submit-click="vm.onButtonGuardarClienteClick"
+                           formulario-mantenimiento-cliente="vm.formularioMantenimientoCliente"
+                           lista-tipos-de-documentos="vm.listaTiposDeDocumento">
+        </cliente-directive>
+    </modal-directive>
+
+    <div id="panelAlerta" class="alert alert-success m-2 fixed-bottom alert-time" style="display: none;">
+        {{vm.mensajeAlertaInformativa}}
+    </div>
+
 </div>

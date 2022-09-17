@@ -104,6 +104,8 @@
     <Content Include="app\app.controller.js" />
     <Content Include="app\app.js" />
     <Content Include="app\app.routes.js" />
+    <Content Include="app\components\cliente-form\cliente-form.directive.js" />
+    <Content Include="app\components\cliente-form\cliente-form.html" />
     <Content Include="app\components\modal\modal.directive.js" />
     <Content Include="app\components\modal\modal.html" />
     <Content Include="app\private\cliente\cliente.controller.js" />
@@ -113,6 +115,8 @@
     <Content Include="app\public\login\login.html" />
     <Content Include="app\shared\authenticacion.service.js" />
     <Content Include="app\shared\data.service.js" />
+    <Content Include="app\shared\data\catalogo.service.js" />
+    <Content Include="app\shared\data\cliente.service.js" />
     <Content Include="app\shared\global.service.js" />
     <Content Include="app\shared\data\usuario.service.js" />
     <Content Include="app\shared\util.service.js" />
