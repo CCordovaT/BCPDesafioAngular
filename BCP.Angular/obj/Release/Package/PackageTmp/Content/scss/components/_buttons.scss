@@ -1,0 +1,22 @@
+﻿.table-btn {
+    padding: 0.3rem 0.3rem 0.2rem 0.3rem;
+    border-color: $color-border-table-button;
+    min-width: 28px;
+}
+
+.cell-btn {
+    padding: 0.2rem 0.2rem 0 0.2rem;
+    border: none;
+}
+
+.btn-login {
+    border-radius: 30px;
+}
+
+#btnToggler {
+    border: none;
+}
+
+.btn-outline-secondary, .btn-outline-primary {
+    background-color: $color-background-button-outline;
+}

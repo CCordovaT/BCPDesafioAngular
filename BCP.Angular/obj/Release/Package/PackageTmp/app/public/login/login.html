@@ -1,0 +1,45 @@
+﻿<div class="d-flex flex-column align-items-center login bg-dark">
+
+    <h3><img src="Content/scss/images/logo_ilc.png"></h3>
+
+    <form id="frmLogin" name="frmLogin" class="p-4 mt-3 border bg-light" novalidate ng-controller="loginController as vm" ng-submit="vm.onButtonContinuarClick(frmLogin)">
+
+        <div class="form-text form-group text-center">
+            Inicia sesión para continuar a
+        </div>
+
+        <div class="text-center font-weight-bold mb-4">
+            MARKETING DIGITAL
+        </div>
+
+        <div class="form-group">
+
+            <label class="form-text">Usuario</label>
+            <input id="txtLoginUsuario" name="txtUsuario" class="form-control form-control-sm text-uppercase" type="text" ng-model="vm.datosLogueo.codUsuario" required />
+            <span class="message-validation" ng-show="(frmLogin.txtUsuario.$dirty || frmLogin.$submitted) && frmLogin.txtUsuario.$error.required">Debe indicar el usuario</span>
+
+        </div>
+
+        <div class="form-group">
+
+            <label class="form-text">Contraseña</label>
+            <input id="txtLoginPassword" name="txtPassword" class="form-control form-control-sm" type="password" ng-model="vm.datosLogueo.password" required />
+            <span class="message-validation" ng-show="(frmLogin.txtPassword.$dirty || frmLogin.$submitted) && frmLogin.txtPassword.$error.required">Debe indicar su contraseña</span>
+
+        </div>
+
+        <div ng-if="vm.mensajeErrorLogueo != ''" class="alert alert-danger text-center">
+            {{vm.mensajeErrorLogueo}}
+        </div>
+
+        <div class="form-group">
+
+            <button id="btnContinuar" type="submit" ng-disabled="vm.esperandoRespuestaLogueo" class="btn btn-primary btn-block mt-4 font-weight-bold btn-login">
+                <span class="fa fa-spinner fa-spin fa-2x"></span>CONTINUAR
+            </button>
+
+        </div>
+
+    </form>
+
+</div>

@@ -1,0 +1,119 @@
+﻿<div ng-controller="prospectoController as vm" class="page container-fluid ng-scope">
+
+    <div class="d-flex">
+        <div class="align-self-baseline">
+            <h4 class="mt-1">Prospectos</h4>
+        </div>
+        <div class="align-self-baseline ml-3">
+            <label class="text-muted">{{vm.listaProspectos.length}} registro(s) encontrado(s)</label>
+        </div>
+        <div class="ml-auto align-self-baseline">
+            <button class="btn btn-primary" type="button" ng-show="vm.listaVendedores.length !== 0" ng-click="vm.onButtonNuevoProspectoClick()"><span class="fas fa-plus mr-2"></span>Nuevo</button>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <span class="font-weight-bold">Criterios de busqueda</span>
+    </div>
+
+    <form id="frmBusquedaProspectos" name="frmBusquedaProspectos" class="form-row mt-2" ng-submit="vm.onButtonBuscarProspectosClick(frmBusquedaProspectos)" novalidate="">
+
+        <div class="col-6 col-md-3 col-lg-2">
+            <div class="form-group">
+                <label class="form-text">Programa</label>
+                <select id="cboTipoPrograma" ng-disabled="vm.listaVendedores.length === 0 || vm.listaTiposPrograma.length === 1" name="cboTipoPrograma" required="" class="form-control" ng-model="vm.filtrosBusqueda.tipoProgramaSeleccionado" ng-options="tipoPrograma as tipoPrograma.cNomCod for tipoPrograma in vm.listaTiposPrograma track by tipoPrograma.nValor" ng-change="vm.onSelectTipoProgramaChanged(frmBusquedaProspectos)">
+                </select>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+            <div class="form-group">
+                <label class="form-text">Nro. de documento o nombre</label>
+                <input type="search" id="txtNroDocumentoONombre" ng-disabled="vm.listaVendedores.length === 0" name="txtNroDocumentoONombre" class="form-control text-uppercase" minlength="{{vm.longitudMinimaBusqueda}}" autocomplete="off" ng-model="vm.filtrosBusqueda.nroDocumentoONombre" ng-change="vm.onInputNroDocumentoONombreChanged(frmBusquedaProspectos)">
+                <div ng-messages="frmBusquedaProspectos.txtNroDocumentoONombre.$error" ng-show="frmBusquedaProspectos.txtNroDocumentoONombre.$dirty || frmBusquedaProspectos.$submitted">
+                    <span class="message-validation" ng-message="minlength">Minimo {{vm.longitudMinimaBusqueda}} caracteres</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3 col-lg-2" ng-show="!vm.ocultaFechas">
+            <div class="form-group">
+                <label class="form-text">Fecha registro inicial</label>
+                <input id="dtpFechaInicial" type="date" ng-disabled="vm.listaVendedores.length === 0" ng-required="!vm.filtrosBusqueda.nroDocumentoONombre" name="dtpFechaInicial" min="2016-01-01" max="{{vm.filtrosBusqueda.fechaFinal}}" required="required" class="form-control" ng-model="vm.filtrosBusqueda.fechaInicial">
+                <div ng-messages="frmBusquedaProspectos.dtpFechaInicial.$error" ng-show="frmBusquedaProspectos.dtpFechaInicial.$dirty || frmBusquedaProspectos.$submitted">
+                    <span class="message-validation" ng-message="required">Fecha requerida</span>
+                    <span class="message-validation" ng-message="date">Fecha no válida</span>
+                    <span class="message-validation" ng-message="min">Debe ser mayor a 2015</span>
+                    <span class="message-validation" ng-message="max">Debe ser menor a la final</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3 col-lg-2" ng-show="!vm.ocultaFechas">
+            <div class="form-group">
+                <label class="form-text">Fecha registro final</label>
+                <input id="dtpFechaFinal" type="date" ng-disabled="vm.listaVendedores.length === 0" name="dtpFechaFinal" ng-required="!vm.filtrosBusqueda.nroDocumentoONombre" required="required" min="2016-01-01" class="form-control" ng-model="vm.filtrosBusqueda.fechaFinal">
+                <div ng-messages="frmBusquedaProspectos.dtpFechaFinal.$error" ng-show="frmBusquedaProspectos.dtpFechaFinal.$dirty || frmBusquedaProspectos.$submitted">
+                    <span class="message-validation" ng-message="required">Fecha requerida</span>
+                    <span class="message-validation" ng-message="date">Fecha no válida</span>
+                    <span class="message-validation" ng-message="min">Debe ser mayor a 1752</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="panelBotonBuscarProspectos" class="col-12 d-flex justify-content-end align-items-md-end col-lg-3" ng-class="{ 'col-lg-3': !vm.ocultaFechas, 'col-lg-7': vm.ocultaFechas, 'col-md-6': vm.ocultaFechas }">
+            <div class="form-group">
+                <button type="submit" ng-disabled="vm.listaVendedores.length === 0" class="btn btn-outline-primary"><span class="fas fa-search mr-2"></span>Buscar</button>
+            </div>
+        </div>
+
+    </form>
+
+    <table class="table table-borderless table-hover table-sm mt-3">
+
+        <thead class="thead">
+            <tr class="d-flex mb-2">
+                <th class="col-6 col-lg-4">Nombre</th>
+                <th class="d-none d-lg-inline-flex col-lg-2 justify-content-center">Tipo doc.</th>
+                <th class="col-3 text-center">Documento</th>
+                <th class="col-2 text-center">Fecha reg.</th>
+                <th class="col-1"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="d-flex" ng-class="{ 'one-row-body': vm.listaProspectos.length === 1 }" ng-repeat="prospecto in vm.listaProspectos">
+                <td class="col-6 col-lg-4 d-flex align-items-center">{{::prospecto.cApePat}} {{::prospecto.cApeMat}}, {{::prospecto.cNombres}}</td>
+                <td class="d-none d-lg-inline-flex col-lg-2 justify-content-center align-items-center">{{::prospecto.cDescripcionTipoDocumento}}</td>
+                <td class="col-3 d-flex justify-content-center align-items-center">{{::prospecto.cDocumento}}</td>
+                <td class="col-2 d-flex justify-content-center align-items-center d-md-none">{{::prospecto.dFechaRegistro | date: 'dd/MM/yy'}}</td>
+                <td class="d-none d-md-inline-flex col-md-2 justify-content-center align-items-center">{{::prospecto.dFechaRegistro | date: 'dd/MM/yyyy'}}</td>
+                <td class="col-1 d-flex justify-content-center align-items-center">
+                    <button type="button" class="btn btn-sm btn-outline-secondary table-btn" ng-click="vm.onButtonEditarProspectoClick(prospecto)"><span class="fa fa-pencil-alt fa-1x"></span></button>
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+
+    <modal-directive panel-header-text="{{vm.etiquetaHeaderModal}}" 
+                     id-panel="{{vm.idPanelMantenimientoProspecto}}">
+        <prospecto-directive prospecto="vm.prospectoSeleccionado" 
+                             label-button-submit="{{vm.etiquetaSubmitButtonModal}}" 
+                             on-button-submit-click="vm.onButtonGuardarProspectoClick" 
+                             formulario-mantenimiento-prospecto="vm.formularioMantenimientoProspecto" 
+                             lista-tipos-de-documentos="vm.listaTiposDeDocumento" 
+                             lista-canales-de-captacion="vm.listaCanalesDeCaptacion" 
+                             lista-productos-de-interes="vm.listaProductosDeInteres" 
+                             on-select-tipo-documento-changed="vm.onSelectTipoDocumentoChanged" 
+                             longitud-maxima-nro-documento="vm.longitudMaximaNroDocumento" 
+                             on-button-validar-documento-click="vm.onButtonValidarDocumentoClick" 
+                             mensaje-error-formato-nro-documento-no-valido="vm.mensajeErrorFormatoNroDocumentoNoValido" 
+                             on-input-nro-documento-changed="vm.onInputNroDocumentoChanged">
+        </prospecto-directive>
+    </modal-directive>
+
+    <div id="panelAlerta" class="alert alert-success m-2 fixed-bottom alert-time" style="display: none;">
+        {{vm.mensajeAlertaInformativa}}
+    </div>
+
+</div>

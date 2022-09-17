@@ -1,0 +1,68 @@
+﻿//plantilla {tipo}-{caracteristica}-{elemento}-{estado:opc}
+
+//COLORES
+
+//backgrounds
+$color-background-form-login: $color-white;
+$color-background-panel-data: $color-white;
+$color-background-navbar-hide: $color-white;
+$color-background-panel-header: $color-blue;
+$color-background-panel-step-active: $color-blue;
+$color-background-panel-step-incomplete: $color-white;
+$color-background-body: $color-gray-very-ligth;
+$color-background-modal: $color-gray-very-ligth;
+$color-background-navbar: $color-blue;
+$color-background-link-hover: $color-blue-ligth;
+$color-background-button-outline: $color-white;
+$color-background-row: $color-white;
+$color-background-list-group-hover: $color-gray-very-ligth;
+$color-background-panel-toogler-top: $color-gray-medium-ligth;
+$color-background-sub-title: $color-gray-very-ligth;
+$color-background-button-menu-sistema-hover: $color-white;
+$color-background-progress: $color-gray-medium-ligth;
+$color-background-primary: $color-blue;
+$color-background-alert-alternative: $color-gray-very-ligth;
+
+//textos
+$color-text-muted-normal: $color-black;
+$color-text-muter-small: $color-gray;
+$color-text-controls: $color-black;
+$color-text-h3: $color-blue;
+$color-text-links: $color-blue;
+$color-text-links-hover: $color-blue-ligth;
+$color-text-nav-links: $color-white;
+$color-text-nav-links-hover: $color-white;
+$color-text-button-disabled: $color-gray;
+$color-text-span-invalid: $color-red;
+$color-text-panel-step-incomplete: $color-blue;
+$color-text-panel-step-active: $color-white;
+$color-text-button-menu-sistema-hover: $color-blue;
+$color-text-primary: $color-blue;
+$color-text-span-validation-link-hover: $color-red-dark;
+
+//bordes
+$color-border-button-disabled: $color-gray;
+$color-border-table-button: $color-gray-ligth;
+$color-border-panel-step-incomplete: $color-gray-medium-ligth;
+$color-border-panel-step-active: $color-blue;
+$color-border-rows: $color-gray-medium-ligth;
+$color-border-left-alert-alternative: $color-blue-ligth;
+
+//shadows
+$color-shadow-rows: $color-gray-ligth;
+
+//DIMENSIONES
+$width-side-bar: 200px;
+$width-side-bar-negative: -202px;
+
+$margin-alert-left: 208px;
+
+$width-mixin-sm: 576px;
+$width-mixin-md: 768px;
+$width-mixin-lg: 992px;
+$width-mixin-xl: 1200px;
+$width-mixin-xxl: 1400px;
+
+$size-font-base: 0.7rem;
+
+$height-button-menu-sm: 10rem;

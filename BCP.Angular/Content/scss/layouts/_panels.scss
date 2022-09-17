@@ -1,0 +1,117 @@
+﻿#panelPrincipal {
+    margin-left: 0;
+    width: 100vw;
+}
+
+#panelTogglerTop {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    padding-left: 15px;
+    z-index: 997;
+    background-color: $color-background-panel-toogler-top;
+}
+
+.marginLeftZero {
+    margin-left: 0 !important;
+}
+
+.alert-time {
+    display: none;
+}
+
+@media (min-width: $width-mixin-xl) {
+    #panelPrincipal {
+        margin-left: $width-side-bar;
+    }
+
+    #panelTogglerTop {
+        display: none;
+    }
+
+    .alert-time {
+        margin-left: $margin-alert-left !important;
+    }
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 998;
+    opacity: 0;
+}
+
+.overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+.login {
+    padding-top: 4rem;
+}
+
+.modal-content {
+    background-color: $color-background-modal;
+    border-radius: 10px;
+}
+
+.avatar-documento {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    left: $size-font-base + 0.3;
+    top: 5px;
+}
+
+.padding-avatar {
+    padding-left: 66px;
+}
+
+#panelBotonBuscarProspectos {
+    line-height: 0;
+}
+
+@media (min-width: $width-mixin-lg) {
+    #panelBotonBuscarProspectos {
+        line-height: 5.4rem;
+    }
+}
+
+.auto-complete-list {
+    position: absolute;
+    z-index: 99;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 165px;
+    overflow: auto;
+    border-radius: 0.25rem;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
+}
+
+#panelResultadoBusqueda {
+    @include shadow;
+    position: absolute;
+    z-index: 998;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 220px;
+    overflow: auto;
+    background-color: $color-background-body;
+}
+
+.panel-data {
+    border-radius: 10px;
+    background-color: $color-background-panel-data;
+    padding: 1rem 1.5rem 1rem 1.5rem;
+}
+
+.alert-alternative {
+    background-color: $color-background-alert-alternative;
+    border-radius: 4px 8px 8px 4px;
+    border-left: 5px solid $color-border-left-alert-alternative;
+}

@@ -1,0 +1,100 @@
+﻿<div ng-controller="simuladorElectroController as vm" class="page container-fluid ng-scope">
+
+    <div class="d-flex">
+        <div class="align-self-baseline">
+            <h4 class="mt-1">Simulador de electrodomésticos</h4>
+        </div>
+    </div>
+
+    <form id="frmBusquedaArticulos" name="frmBusquedaArticulos" class="form-group mt-3 col-12 col-lg-8 col-xl-6 px-0" style="position: relative;" novalidate>
+        <div class="col-12 px-0">
+            <label class="form-text" for="txtFiltroBusqueda">Buscador de electrodomesticos</label>
+            <input type="text" id="txtFiltroBusqueda" name="txtFiltroBusqueda" placeholder="Escribe aqui la descripción del electroméstico a cotizar" class="form-control text-uppercase" minlength="{{vm.longitudMinimaBusqueda}}" autocomplete="off" ng-model="vm.filtroBusqueda" ng-change="vm.onInputFiltroBusquedaChanged()" ng-click="vm.onInputFiltroBusquedaClick()" ng-keyup="vm.onInputFiltroBusquedaKeyUp($event)">
+            <div ng-messages="frmBusquedaArticulos.txtFiltroBusqueda.$error" ng-show="frmBusquedaArticulos.txtFiltroBusqueda.$dirty || frmBusquedaArticulos.$submitted">
+                <span class="message-validation" ng-message="minlength">Mínimo son 4 caracteres para buscar</span>
+            </div>
+        </div>
+        <div id="panelResultadoBusqueda" class="col-12 px-0 border rounded mt-1">
+            <div class="text-center border-bottom p-1">
+                <span ng-show="vm.estaBuscandoArticulos" class="fa fa-spinner fa-spin fa-2x mr-2"></span>
+                <span ng-show="!vm.estaBuscandoArticulos" class="font-weight-bold">Se encontraron {{vm.nroArticulosEncontrados}} articulo(s) coincidente(s)</span>
+            </div>
+            <div class="p-2" ng-show="vm.nroArticulosEncontrados">
+                <table class="table table-borderless table-sm mb-0 table-hover mt-1" ng-repeat="familiaArticulos in vm.listaArticulosEncontrados">
+                    <thead class="thead">
+                        <tr>
+                            <th class="col-12">{{::familiaArticulos.cDescripcionFamilia}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="d-flex" ng-class="{ 'one-row-body': familiaArticulos.listaArticulos.length == 1 }" ng-repeat="articulo in familiaArticulos.listaArticulos" ng-click="vm.onFilaArticuloSelected(articulo, familiaArticulos.cDescripcionFamilia)" style="cursor: pointer;">
+                            <td class="col-12">{{::articulo.cDescripcionCompleta}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </form>
+
+    <div class="panel-data border mt-4 mb-3 col-12 col-lg-8 col-xl-6">
+
+        <div class="row">
+
+            <div class="col-12">
+
+                <span class="sub-title mb-3 border font-weight-bold">Detalle del electrodoméstico</span>
+
+                <div class="form-row mb-3">
+                    <label class="col-4 col-md-3 col-form-label">Familia</label>
+                    <div class="col-8 col-md-9">
+                        <input type="text" readonly class="form-control-plaintext" value="{{vm.articuloSeleccionado.cDescripcionFamilia}}">
+                    </div>
+                </div>
+
+                <div class="form-row mb-3">
+                    <label class="col-4 col-md-3 col-form-label">Artículo</label>
+                    <div class="col-8 col-md-9">
+                        <input type="text" readonly class="form-control-plaintext" value="{{vm.articuloSeleccionado.cDescripcionArticulo}}">
+                    </div>
+                </div>
+
+                <div class="form-row mb-3">
+                    <label class="col-4 col-md-3 col-form-label">Marca</label>
+                    <div class="col-8 col-md-9">
+                        <input type="text" readonly class="form-control-plaintext" value="{{vm.articuloSeleccionado.cDescripcionMarca}}">
+                    </div>
+                </div>
+
+                <div class="form-row mb-3">
+                    <label class="col-4 col-md-3 col-form-label">Linea</label>
+                    <div class="col-8 col-md-9">
+                        <input type="text" readonly class="form-control-plaintext" ng-click="vm.onFocusFormControl()" value="{{vm.articuloSeleccionado.cDescripcionLinea}}">
+                    </div>
+                </div>
+
+                <div class="form-row mb-3">
+                    <label class="col-4 col-md-3 col-form-label">Modelo</label>
+                    <div class="col-8 col-md-9">
+                        <input type="text" readonly class="form-control-plaintext" ng-click="vm.onFocusFormControl()" value="{{vm.articuloSeleccionado.cDescripcionModelo}}">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <label class="col-4 col-md-3 col-form-label">Monto préstamo</label>
+                    <div class="col-8 col-md-9">
+                        <span ng-show="vm.estaCalculandoPrestamo" class="fa fa-spinner fa-spin fa-2x mr-2"></span>
+                        <input type="text" ng-show="!vm.estaCalculandoPrestamo" readonly class="form-control-plaintext font-weight-bold" ng-click="vm.onFocusFormControl()" value="{{(vm.articuloSeleccionado.nMontoPrestamo > 0) ? 'S/. ' + (vm.articuloSeleccionado.nMontoPrestamo | number:2) : ''}}">
+                    </div>
+                </div>
+
+                <div class="mt-4 p-2 alert-alternative text-secondary font-italic" ng-show="vm.articuloSeleccionado.nMontoPrestamo > 0">
+                    <span class="fas fa-info-circle mr-2"></span>El monto de préstamo es referencial sujeto a evaluación crediticia
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

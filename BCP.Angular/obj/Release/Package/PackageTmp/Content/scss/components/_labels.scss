@@ -1,0 +1,41 @@
+﻿span.message-validation {
+    width: 100%;
+    margin-top: 0.25rem;
+    color: $color-text-span-invalid;
+}
+
+.form-text, .col-form-label {
+    color: $color-secondary;
+}
+
+.form-control {
+    color: $color-text-controls !important;
+}
+
+.text-muted-sm {
+    color: $color-secondary;
+}
+
+@media (min-width: $width-mixin-lg) {
+    .text-muted-sm {
+        color: $color-text-controls;
+    }
+}
+
+.sub-title {
+    border-radius: 10px;
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+    margin-left: -5px;
+    margin-right: -5px;
+    background-color: $color-background-sub-title;
+    display: flex;
+    flex-direction: row;
+}
+
+@media (min-width: $width-mixin-md) {
+
+    .sub-title {
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+}

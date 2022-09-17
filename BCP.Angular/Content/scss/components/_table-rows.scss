@@ -1,0 +1,44 @@
+﻿tbody.rows-separate tr {
+    border: 1px solid $color-border-rows;
+    border-radius: 10px;
+    margin-bottom: 6px;
+    background-color: $color-background-row;
+    padding: 4px;
+    box-shadow: 0px 1px $color-shadow-rows;
+}
+
+tr {
+    padding: 4px;
+}
+
+tr:not(:last-child):not(.border-0) {
+    border-bottom: 1px solid $color-border-rows;
+}
+
+tbody:not(.border-0):not(.rows-separate) {
+    box-shadow: 0 0 0 1px $color-border-rows;
+}
+
+tbody:not(.rows-separate) {
+    border-radius: 10px;
+
+    tr {
+        background-color: $color-background-row;
+    }
+
+    tr:first-child {
+        border-radius: 10px 10px 0px 0px;
+    }
+
+    tr:last-child {
+        border-radius: 0px 0px 10px 10px;
+    }
+
+    tr.one-row-body {
+        border-radius: 10px 10px 10px 10px !important;
+    }
+}
+
+/*td * {
+      border: 1px solid red !important;
+  }*/

@@ -1,0 +1,28 @@
+﻿$primary: #0747A6;
+
+@import "vendors/bootstrap/bootstrap";
+
+@import "utilities/colors";
+@import "utilities/variables";
+@import "utilities/mixin";
+
+@import "base/site";
+@import "base/typography";
+
+@import "pages/login";
+@import "pages/pages";
+
+@import "layouts/navigation";
+@import "layouts/panels";
+@import "layouts/list";
+@import "layouts/forms";
+@import "layouts/tables";
+
+@import "components/buttons";
+@import "components/inputs";
+@import "components/labels";
+@import "components/list-item";
+@import "components/table-headers";
+@import "components/table-rows";
+
+@import "vendors/fontawesome-extensions";

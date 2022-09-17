@@ -1,0 +1,9 @@
+﻿.page {
+    margin-top: 4.5rem;
+}
+
+@media (min-width: $width-mixin-xl) {
+    .page {
+        margin-top: $size-font-base + 0.3;
+    }
+}

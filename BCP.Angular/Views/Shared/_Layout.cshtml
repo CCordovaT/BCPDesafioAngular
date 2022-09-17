@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html ng-app="app">
+
+<head>
+    
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <link rel="shortcut icon" href="#" />
+
+    <title>BCP Desafio</title>
+
+    @Styles.Render("~/Content/scss/vendors/fontawesome/css/fontawesomecss")
+    @Styles.Render("~/bundles/sweetalert2css")
+    @Styles.Render("~/Content/scss/css")
+
+</head>
+
+    <body ng-controller="appController as vm" ng-init="init('@System.Configuration.ConfigurationManager.AppSettings["WebApiUrl"]')">
+
+        <div class="d-flex flex-row flex-nowrap overflow-hidden">
+
+            <nav id="mnuPrincipal" ng-cloak ng-class="vm.showMenuCss" ng-if="vm.esUsuarioLogueado()" class="navbar navbar-dark bg-primary">
+                <ul class="navbar-nav mt-2 mt-lg-1">
+                    <li class="mb-2 mt-2">
+                        <div class="row">
+                            <img src="~/Content/scss/images/logoILC_sin_texto.png" width="30" height="30" class="col-4 pt-1" alt="">
+                            <h5 class="text-white col-8" style="padding-left: 2px;">BANCO DE CREDITO</h5>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a class="nav-link text-truncate mnu-item" href ui-sref="equipos"><span class="fas fa-users fa-2x"></span>Equipo</a></li>
+                    <li class="nav-item"><a class="nav-link text-truncate mnu-item" href ui-sref="metas"><span class="fas fa-calculator fa-2x"></span>Metas</a></li>
+                    <li class="nav-item"><a class="nav-link text-truncate mnu-item" href ui-sref="clientes"><span class="fas fa-user fa-2x"></span>Clientes</a></li>
+                    <li class="nav-item"><a class="nav-link text-truncate mnu-item" href ui-sref="ventas"><span class="fas fa-cash-register fa-2x"></span>Ventas</a></li>
+                </ul>              
+                <ul class="navbar-nav nav-footer">
+                    <li class="nav-item dropdown">
+                        <div class="collapse" id="mnuUsuario" aria-expanded="false">
+                            <ul class="flex-column nav">
+                                <li class="nav-item text-truncate mnu-item no-pad-item"><a class="nav-link" href ng-click="vm.cerrarSesion()"><span class="fas fa-sign-out-alt fa-rotate-180 fa-2x"></span>Cerrar sesión</a></li>
+                            </ul>
+                        </div>
+                        <a class="nav-link text-truncate mnu-item" href data-toggle="collapse" data-target="#mnuUsuario"><span class="fas fa-user-circle fa-2x"></span><span ng-bind="vm.usuario.codAccesoUsuario"></span><span class="fas fa-caret-up"></span></a>
+                    </li>                    
+                </ul>
+            </nav>
+
+            <div id="panelPrincipal" ng-cloak ng-class="{ 'marginLeftZero': !vm.esUsuarioLogueado() }">
+                
+                <div ng-if="vm.esUsuarioLogueado()" id="panelTogglerTop" class="pt-2">
+                    <button id="btnToggler" class="btn btn-sm btn-outline-secondary mb-2" type="button" ng-click="vm.mostrarMenu()"><i class="fas fa-bars fa-2x pt-1"></i></button>
+                </div>            
+
+                @RenderBody()
+
+            </div>
+
+            <div class="overlay" ng-click="vm.ocultarMenu()"></div>
+
+        </div>
+
+        @Scripts.Render("~/bundles/bootstrapjs")
+        @Scripts.Render("~/bundles/sweetalert2js")
+        @Scripts.Render("~/bundles/angular")
+        @Scripts.Render("~/bundles/app")
+
+    </body>
+
+</html>

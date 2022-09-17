@@ -1,0 +1,56 @@
+﻿#mnuPrincipal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    display: flex;
+    z-index: 999;
+    flex-direction: column;
+    margin-left: $width-side-bar-negative;
+    transition: all 0.3s;
+    justify-content: flex-start;
+    flex-flow: column nowrap;
+}
+
+nav ul {
+    width: 170px;
+}
+
+nav ul ul li:not(.no-pad-item) {
+    padding-left: 32px;
+}
+
+nav .mnu-item {
+    border-radius: 0.25rem;
+}
+
+nav .mnu-item:hover {
+    background-color: $color-text-links-hover;
+}
+
+nav span.fas {
+    width: 28px;
+    text-align: center;
+    margin-right: 0.25rem;
+}
+
+nav a {
+    color: $color-white !important;
+}
+
+nav .nav-footer {
+    margin-top: auto;
+    margin-bottom: 0.25rem;
+}
+
+#mnuPrincipal.show {
+    margin-left: 0;
+}
+
+@media (min-width: $width-mixin-xl) {
+    #mnuPrincipal {
+        margin-left: 0;
+        width: $width-side-bar;
+        height: 100vh;
+    }
+}

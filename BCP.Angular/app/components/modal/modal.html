@@ -1,0 +1,15 @@
+﻿<div class="modal fade" id="{{idPanel}}" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{panelHeaderText}}</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="onUnload()">
+                    <span class="fas fa-times fa-2x" aria-hidden="true"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ng-transclude></ng-transclude>
+            </div>
+        </div>
+    </div>
+</div>

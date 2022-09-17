@@ -1,0 +1,126 @@
+﻿<form id="frmMantenimientoCatalogoDetalle" name="formularioMantenimientoProspecto" ng-submit="onButtonSubmitClick()" novalidate>
+    <div class="form-row mb-2">
+        <div class="col-4 form-group">
+            <label class="form-text" for="txtDescripcionPrograma">Programa</label>
+            <input id="txtDescripcionPrograma" disabled="disabled" name="txtTelefono" type="text" class="form-control" value="{{prospecto.descripcionPrograma}}">
+        </div>
+        <div class="col-4 form-group">
+            <label class="form-text" for="txtCodUsuario">Vendedor</label>
+            <input id="txtCodUsuario" disabled="disabled" name="txtTelefono" type="text" class="form-control" value="{{prospecto.cCodUsu}}">
+        </div>
+        <div class="col-4 form-group" ng-show="prospecto.nCodProspecto === 0">
+            <label class="form-text" for="txtFechaRegistro">Fecha de registro</label>
+            <input id="txtFechaRegistro" type="text" disabled="disabled" class="form-control text-uppercase" value="{{prospecto.dFechaRegistro | date: 'dd/MM/yy'}}">
+        </div>
+        <div class="col-4 form-group" ng-show="prospecto.nCodProspecto !== 0">
+            <label class="form-text" for="txtFechaRegistro">Fecha de registro</label>
+            <input id="txtFechaRegistro" type="text" disabled="disabled" class="form-control text-uppercase" value="{{prospecto.dFechaRegistro | date: 'dd/MM/yy HH:mm'}}"">
+        </div>
+    </div>
+
+    <span class="font-weight-bold" ng-show="prospecto.nCodProspecto === 0">Ingrese y valide el documento</span>
+    <span class="font-weight-bold" ng-show="prospecto.nCodProspecto !== 0">Datos del prospecto</span>
+
+    <div class="form-row mt-3" ng-class="{ 'mb-2' : prospecto.nCodProspecto === 0 }">
+        <div class="col-6 form-group">
+            <label class="form-text" for="cboTipoDocumento">Tipo de documento</label>
+            <select name="cboTipoDocumento" required ng-disabled="prospecto.nCodProspecto !== 0" class="form-control" ng-model="prospecto.tipoDocumento" ng-options="documento as documento.cNomCod for documento in listaTiposDeDocumentos track by documento.nValor" ng-change="onSelectTipoDocumentoChanged()">
+                <option value="" class="">SELECCIONE...</option>
+            </select>
+            <div ng-messages="formularioMantenimientoProspecto.cboTipoDocumento.$error" ng-show="(formularioMantenimientoProspecto.cboTipoDocumento.$dirty || formularioMantenimientoProspecto.$submitted)">
+                <span class="message-validation" ng-message="required">Tipo doc. requerido</span>
+            </div>
+        </div>
+        <div class="col-6 form-group">
+            <label class="form-text" for="txtNroDocumento">Nro. documento</label>
+            <div class="input-group">
+                <input name="txtNroDocumento" type="text" required ng-disabled="prospecto.nCodProspecto !== 0" ng-class="{ 'is-valid' : (prospecto.codEstadoValidacionDocumento === 3 && prospecto.nCodProspecto === 0), 'is-invalid' : prospecto.codEstadoValidacionDocumento === 2 }" class="form-control" autocomplete="off" maxlength="{{longitudMaximaNroDocumento}}" ng-maxlength="{{longitudMaximaNroDocumento}}" ng-model="prospecto.cDocumento" ng-change="onInputNroDocumentoChanged()">
+                <div class="input-group-append" ng-show="prospecto.nCodProspecto === 0">
+                    <button class="btn btn-outline-primary" type="button" ng-disabled="prospecto.codEstadoValidacionDocumento === 3" id="btnValidarDocumento" ng-click="onButtonValidarDocumentoClick()">Validar</button>
+                </div>
+            </div>
+            <div ng-messages="formularioMantenimientoProspecto.txtNroDocumento.$error" ng-show="formularioMantenimientoProspecto.txtNroDocumento.$dirty || formularioMantenimientoProspecto.$submitted">
+                <span class="message-validation" ng-message="required">Documento requerido</span>
+                <span class="message-validation" ng-message="format">{{mensajeErrorFormatoNroDocumentoNoValido}}</span>
+                <span class="message-validation" ng-message="maxlength">No puede ser mas de {{longitudMaximaNroDocumento}} caracteres</span>
+            </div>
+        </div>
+    </div>
+    <span class="font-weight-bold" ng-show="prospecto.nCodProspecto === 0">Datos del prospecto</span>
+    <div class="form-row" ng-class="{ 'mt-3' : prospecto.nCodProspecto === 0}">
+        <div class="col-6 form-group">
+            <label class="form-text" for="txtNombres">Nombres*</label>
+            <input id="txtNombres" name="txtNombres" type="text" class="form-control text-uppercase" autocomplete="nope" ng-model="prospecto.cNombres" required="" maxlength="30" ng-maxlength="30">
+            <div ng-messages="formularioMantenimientoProspecto.txtNombres.$error" ng-show="(formularioMantenimientoProspecto.txtNombres.$dirty || formularioMantenimientoProspecto.$submitted)">
+                <span class="message-validation" ng-message="required">Nombres requerido</span>
+                <span class="message-validation" ng-message="maxlength">Maximo 30 caracteres</span>
+            </div>
+        </div>
+        <div class="col-6 form-group">
+            <label class="form-text" for="txtPrimerApellido">Primer apellido*</label>
+            <input id="txtPrimerApellido" name="txtPrimerApellido" type="text" class="form-control text-uppercase" autocomplete="off" ng-model="prospecto.cApePat" required="" maxlength="30" ng-maxlength="30">
+            <div ng-messages="formularioMantenimientoProspecto.txtPrimerApellido.$error" ng-show="(formularioMantenimientoProspecto.txtPrimerApellido.$dirty || formularioMantenimientoProspecto.$submitted)">
+                <span class="message-validation" ng-message="required">Primer apellido requerido</span>
+                <span class="message-validation" ng-message="maxlength">Maximo 30 caracteres</span>
+            </div>
+        </div>
+        <div class="col-6 form-group">
+            <label class="form-text" for="txtSegundoApellido">Segundo apellido*</label>
+            <input id="txtSegundoApellido" name="txtSegundoApellido" type="text" class="form-control text-uppercase" autocomplete="nope" ng-model="prospecto.cApeMat" required="" maxlength="30" ng-maxlength="30">
+            <div ng-messages="formularioMantenimientoProspecto.txtSegundoApellido.$error" ng-show="(formularioMantenimientoProspecto.txtSegundoApellido.$dirty || formularioMantenimientoProspecto.$submitted)">
+                <span class="message-validation" ng-message="required">Segundo apellido requerido</span>
+                <span class="message-validation" ng-message="maxlength">Maximo 30 caracteres</span>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-6 form-group">
+            <label class="form-text" for="cboProductoInteres">Producto de interes*</label>
+            <select name="cboProductoInteres" required class="form-control" ng-model="prospecto.productoInteres" ng-options="producto as producto.cNomCod for producto in listaProductosDeInteres track by producto.nValor">
+                <option value="" class="">SELECCIONE...</option>
+            </select>
+            <div ng-messages="formularioMantenimientoProspecto.cboProductoInteres.$error" ng-show="(formularioMantenimientoProspecto.cboProductoInteres.$dirty || formularioMantenimientoProspecto.$submitted)">
+                <span class="message-validation" ng-message="required">Seleccione uno</span>
+            </div>
+        </div>
+        <div class="col-6 form-group">
+            <label class="form-text" for="txtTelefono">Número de contacto</label>
+            <input id="txtTelefono" name="txtTelefono" type="text" class="form-control" pattern="[0-9]{6,}" autocomplete="nope" maxlength="9" ng-minlength="6" ng-maxlength="9" ng-model="prospecto.cTelefono">
+            <div ng-messages="formularioMantenimientoProspecto.txtTelefono.$error" ng-show="(formularioMantenimientoProspecto.txtTelefono.$dirty || formularioMantenimientoProspecto.$submitted)">
+                <span class="message-validation" ng-message="minlength">Minimo deben ser 6 caracteres</span>
+                <span class="message-validation" ng-message="pattern">Solo debe ingresar números</span>
+                <span class="message-validation" ng-message="maxlength">Maximo deben ser 9 caracteres</span>
+            </div>
+        </div>
+    </div>
+    <div class="form-row" ng-show="prospecto.nTipoPrograma === '2'">
+        <div class="col-6 form-group">
+            <label class="form-text" for="cboCanalCaptacion">Canal captación*</label>
+            <select name="cboCanalCaptacion" ng-required="prospecto.nTipoPrograma === '2'" class="form-control" ng-model="prospecto.canalCaptacion" ng-options="canal as canal.cNomCod for canal in listaCanalesDeCaptacion track by canal.nValor">
+                <option value="" class="">SELECCIONE...</option>
+            </select>
+            <div ng-messages="formularioMantenimientoProspecto.cboCanalCaptacion.$error" ng-show="(formularioMantenimientoProspecto.cboCanalCaptacion.$dirty || formularioMantenimientoProspecto.$submitted)">
+                <span class="message-validation" ng-message="required">Seleccione uno</span>
+            </div>
+        </div>
+        <div class="col-6 form-group d-flex align-items-end pb-1">
+            <div class="custom-control custom-checkbox">
+                <input name="chkEsAliado" type="checkbox" class="custom-control-input" id="chkEsAliado" ng-model="prospecto.bEsAliado">
+                <label class="custom-control-label" style="line-height: 1.5rem;" for="chkEsAliado">Es aliado</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-12 form-group">
+            <label class="form-text" for="txtComentario">Comentario zona prospección*</label>
+            <textarea id="txtComentario" name="txtComentario" required maxlength="400" ng-maxlength="400" rows="2" type="text" class="form-control" autocomplete="off" ng-model="prospecto.cComentario"></textarea>
+            <div ng-messages="formularioMantenimientoProspecto.txtComentario.$error" ng-show="(formularioMantenimientoProspecto.txtComentario.$dirty || formularioMantenimientoProspecto.$submitted)">
+                <span class="message-validation" ng-message="required">Comentario requerido</span>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-end px-3 border-top pt-3">
+        <button type="button" class="btn btn-outline-primary mr-2" data-dismiss="modal">Cancelar</button>
+        <button id="btnGuardarDatosCliente" ng-disabled="formularioMantenimientoProspecto.$pristine" type="submit" class="btn btn-primary" disabled="disabled">{{labelButtonSubmit}}</button>
+    </div>
+</form>
