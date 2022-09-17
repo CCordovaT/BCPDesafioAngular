@@ -4,9 +4,9 @@
 
     angular.module('app').controller('clienteController', clienteController);
 
-    clienteController.$inject = ['globalService', 'usuarioService', 'utilService', 'clienteService', 'appConst', 'catalogoService'];
+    clienteController.$inject = ['globalService', 'usuarioService', 'utilService', 'clienteService', 'appConst', 'catalogoService', '$state'];
 
-    function clienteController(globalService, usuarioService, utilService, clienteService, appConst, catalogoService) {
+    function clienteController(globalService, usuarioService, utilService, clienteService, appConst, catalogoService, $state) {
 
         const vm = this;
 
@@ -107,6 +107,9 @@
             if (!vm.formularioMantenimientoCliente.$valid) return;
 
             vm.clienteSeleccionado.idTipoDocumento = parseInt(vm.clienteSeleccionado.tipoDocumento.idTipoDocumento);
+            vm.clienteSeleccionado.nombres = vm.clienteSeleccionado.nombres.trim().toUpperCase();
+            vm.clienteSeleccionado.primerApellido = vm.clienteSeleccionado.primerApellido.trim().toUpperCase();
+            vm.clienteSeleccionado.segundoApellido = vm.clienteSeleccionado.segundoApellido.trim().toUpperCase();
 
             utilService.mostrarMensajeDeCarga('Guardando datos...');
 

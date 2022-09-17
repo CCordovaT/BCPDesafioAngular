@@ -14,6 +14,7 @@
         let usuario = {};
 
         servicio.obtenerDatosUsuario = obtenerDatosUsuario;
+        servicio.obtenerListaSimplePorEncargado = obtenerListaSimplePorEncargado;
         servicio.existeSesionIniciada = existeSesionIniciada;
 
         return servicio;
@@ -21,6 +22,12 @@
         function obtenerDatosUsuario(codAccesoUsuario) {
 
             return dataService.getData(`${globalService.rutaRaizApi}/${RUTA_RECURSO}?codAccesoUsuario=${codAccesoUsuario}`);
+
+        }
+
+        function obtenerListaSimplePorEncargado(idUsuarioEncargado) {
+
+            return dataService.getData(`${globalService.rutaRaizApi}/${RUTA_RECURSO}/lista-simple?idUsuarioEncargado=${idUsuarioEncargado}`);
 
         }
 

@@ -36,11 +36,10 @@
 
         };
 
-        servicio.estadoValidacionDocumento = {
+        servicio.cargo = {
 
-            PENDIENTE: 1,
-            RECHAZADO: 2,
-            VALIDO: 3
+            GERENTE_AGENCIA: 1,
+            ASESOR_COMERCIAL: 2
 
         }
 

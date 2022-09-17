@@ -26,6 +26,7 @@
         servicio.estaOculto = estaOculto;
         servicio.mostrarMensajeDeCarga = mostrarMensajeDeCarga;
         servicio.convertirTextoAFecha = convertirTextoAFecha;
+        servicio.obtenerNombreMes = obtenerNombreMes;
 
         return servicio;
 
@@ -224,6 +225,14 @@
         function estaOculto(elemento) {
 
             return window.getComputedStyle(elemento).display === 'none' || window.getComputedStyle(elemento).visibility === "hidden";
+
+        }
+
+        function obtenerNombreMes(nroMes) {
+
+            const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"];
+
+            return meses[nroMes];
 
         }
 

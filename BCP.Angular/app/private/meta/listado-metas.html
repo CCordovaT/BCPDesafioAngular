@@ -1,0 +1,51 @@
+﻿<div ng-controller="metaController as vm" class="page container-fluid ng-scope">
+
+    <div class="d-flex">
+        <div class="align-self-baseline">
+            <h4 class="mt-1">Seguimiento de metas del equipo</h4>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <span class="font-weight-bold">Periodo: {{vm.periodoActual}}</span>
+    </div>
+
+    <table class="table table-borderless table-hover table-sm mt-3">
+
+        <thead class="thead">
+            <tr class="d-flex mb-2">
+                <th class="col-6">Asesor</th>
+                <th class="col-2 text-right">Meta puntos</th>
+                <th class="col-2 text-right">Puntos obtenidos</th>
+                <th class="col-2 text-right">Puntos faltantes</th>
+                <th class="d-none col-md-2"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="d-flex" ng-class="{ 'one-row-body': vm.listaMetas.length === 1 }" ng-repeat="meta in vm.listaMetas">
+                <td class="col-6 d-flex align-items-center">{{::meta.nombreAsesor}}</td>
+                <td class="col-6 d-inline-flex justify-content-center" ng-show="::meta.idMeta === 0">
+                    <button type="button" class="btn btn-primary table-btn" ng-click="vm.onButtonNuevaMetaClick(meta)"><span class="fa fa-plus"></span> Asignar meta</button>
+                </td>
+                <td class="col-2 font-weight-bolder text-right" ng-show="::meta.idMeta !== 0">{{::meta.totalPuntosMeta | number : 2}}</td>
+                <td class="col-2 text-right" ng-show="::meta.idMeta !== 0">{{::meta.totalPuntosObtenidos | number : 2}}</td>
+                <td class="col-2 text-danger text-right font-weight-bolder" ng-show="::meta.idMeta !== 0">{{::meta.totalPuntosFaltantes | number : 2}}</td>
+            </tr>
+        </tbody>
+
+    </table>
+
+    <modal-directive panel-header-text="{{vm.etiquetaHeaderModal}}"
+                     id-panel="{{vm.idPanelMantenimientoMeta}}">
+        <meta-directive meta="vm.metaSeleccionada"
+                        label-button-submit="{{vm.etiquetaSubmitButtonModal}}"
+                        on-button-submit-click="vm.onButtonGuardarMetaClick"
+                        formulario-mantenimiento-meta="vm.formularioMantenimientoMeta">
+        </meta-directive>
+    </modal-directive>
+
+    <div id="panelAlerta" class="alert alert-success m-2 fixed-bottom alert-time" style="display: none;">
+        {{vm.mensajeAlertaInformativa}}
+    </div>
+
+</div>

@@ -1,0 +1,41 @@
+﻿<form id="formularioMantenimientoVenta" name="formularioMantenimientoVenta" ng-submit="onButtonSubmitClick()" novalidate>
+
+    <div class="form-group">
+        <label class="form-text" for="cboCliente">Cliente</label>
+        <select name="cboCliente" required class="form-control" ng-model="venta.clienteSeleccionado" ng-options="cliente as cliente.nombreCompleto for cliente in listaClientes track by cliente.idCliente">
+            <option value="" class="">SELECCIONE...</option>
+        </select>
+        <div ng-messages="formularioMantenimientoVenta.cboCliente.$error" ng-show="(formularioMantenimientoVenta.cboCliente.$dirty || formularioMantenimientoVenta.$submitted)">
+            <span class="message-validation" ng-message="required">Cliente requerido</span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="form-text" for="cboProducto">Producto</label>
+        <select name="cboProducto" required class="form-control" ng-model="venta.productoSeleccionado" ng-options="producto as producto.descripcionProducto for producto in listaProductos track by producto.idProducto">
+            <option value="" class="">SELECCIONE...</option>
+        </select>
+        <div ng-messages="formularioMantenimientoVenta.cboProducto.$error" ng-show="(formularioMantenimientoVenta.cboProducto.$dirty || formularioMantenimientoVenta.$submitted)">
+            <span class="message-validation" ng-message="required">Producto requerido</span>
+        </div>
+    </div>
+
+    <div class="form-row justify-content-end">
+        <div class="col-5 form-group">
+            <label class="form-text text-right" for="txtMonto">S/. Monto</label>
+            <input id="txtMonto" name="txtMonto" class="form-control text-right" step="0.01" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-model="venta.montoVenta" required="" min="1" max="1000000" type="number" autocomplete="off" maxlength="9" ng-maxlength="9" placeholder="0.00">
+            <div ng-messages="formularioMantenimientoVenta.txtMonto.$error" ng-show="(formularioMantenimientoVenta.txtMonto.$dirty || formularioMantenimientoVenta.$submitted)">
+                <span class="message-validation" ng-message="required">El monto es requerido</span>
+                <span class="message-validation" ng-message="min">El monto minimo es 1</span>
+                <span class="message-validation" ng-message="max">El monto maximo es un millon</span>
+                <span class="message-validation" ng-message="pattern">El monto no es válido</span>
+            </div>
+        </div>     
+    </div>
+
+    <div class="row justify-content-end px-3 border-top pt-3">
+        <button type="button" class="btn btn-outline-primary mr-2" data-dismiss="modal">Cancelar</button>
+        <button id="btnGuardarDatosCliente" ng-disabled="formularioMantenimientoVenta.$pristine" type="submit" class="btn btn-primary" disabled="disabled">{{labelButtonSubmit}}</button>
+    </div>
+
+</form>

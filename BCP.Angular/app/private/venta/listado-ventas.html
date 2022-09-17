@@ -1,0 +1,52 @@
+﻿<div ng-controller="ventaController as vm" class="page container-fluid ng-scope">
+
+    <div class="d-flex">
+        <div class="align-self-baseline">
+            <h4 class="mt-1">Ventas en el mes</h4>
+        </div>
+        <div class="align-self-baseline ml-3">
+            <label class="text-muted">{{vm.listaVentas.length}} registro(s) encontrado(s)</label>
+        </div>
+        <div class="ml-auto align-self-baseline">
+            <button class="btn btn-primary" type="button" ng-click="vm.onButtonNuevaVentaClick()"><span class="fas fa-plus mr-2"></span>Nueva</button>
+        </div>
+    </div>
+
+    <table class="table table-borderless table-hover table-sm mt-3">
+
+        <thead class="thead">
+            <tr class="d-flex mb-2">
+                <th class="col-2 col-md-3">Fecha</th>
+                <th class="col-4">Cliente</th>
+                <th class="col-4 col-md-3">Producto</th>
+                <th class="col-2 text-right">S/. Monto</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="d-flex" ng-class="{ 'one-row-body': vm.listaVentas.length === 1 }" ng-repeat="venta in vm.listaVentas">
+                <td class="col-2 d-md-none">{{::venta.fechaRegistro | date: 'dd/MM/yy'}}</td>
+                <td class="d-none d-md-inline-flex col-md-3">{{::venta.fechaRegistro | date: 'dd/MM/yyyy HH:mm'}}</td>
+                <td class="col-4 ">{{::venta.nombreCompletoCliente}}</td>
+                <td class="col-4 col-md-3 text-truncate">{{::venta.descripcionProducto}}</td>
+                <td class="col-2 text-right font-weight-bolder">{{::venta.montoVenta | number : 2}}</td>
+            </tr>
+        </tbody>
+
+    </table>
+
+    <modal-directive panel-header-text="{{vm.etiquetaHeaderModal}}"
+                     id-panel="{{vm.idPanelMantenimientoVenta}}">
+        <venta-directive venta="vm.ventaSeleccionada"
+                         label-button-submit="{{vm.etiquetaSubmitButtonModal}}"
+                         on-button-submit-click="vm.onButtonGuardarVentaClick"
+                         formulario-mantenimiento-venta="vm.formularioMantenimientoVenta"
+                         lista-productos="vm.listaProductos"
+                         lista-clientes="vm.listaClientes">
+        </venta-directive>
+    </modal-directive>
+
+    <div id="panelAlerta" class="alert alert-success m-2 fixed-bottom alert-time" style="display: none;">
+        {{vm.mensajeAlertaInformativa}}
+    </div>
+
+</div>

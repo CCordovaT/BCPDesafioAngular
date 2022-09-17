@@ -1,0 +1,26 @@
+﻿<form id="formularioMantenimientoMeta" name="formularioMantenimientoMeta" ng-submit="onButtonSubmitClick()" novalidate>
+
+    <div class="form-group">
+        <label class="form-text" for="txtCliente">Asesor</label>
+        <input id="txtNombreAsesor" name="txtNombreAsesor" disabled class="form-control" ng-model="meta.nombreAsesor" required="" type="text" autocomplete="off">
+    </div>
+
+    <div class="form-row">
+        <div class="col-5 form-group">
+            <label class="form-text" for="totalPuntosMeta">Meta puntos</label>
+            <input id="totalPuntosMeta" name="totalPuntosMeta" class="form-control text-right" step="0.01" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-model="meta.totalPuntosMeta" required="" min="1" max="1000000" type="number" autocomplete="off" maxlength="9" ng-maxlength="9" placeholder="0.00">
+            <div ng-messages="formularioMantenimientoMeta.totalPuntosMeta.$error" ng-show="(formularioMantenimientoMeta.totalPuntosMeta.$dirty || formularioMantenimientoMeta.$submitted)">
+                <span class="message-validation" ng-message="required">La meta es requerida</span>
+                <span class="message-validation" ng-message="min">La meta minimo es 1</span>
+                <span class="message-validation" ng-message="max">La meta maximo es un millon</span>
+                <span class="message-validation" ng-message="pattern">La meta no es válido</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-end px-3 border-top pt-3">
+        <button type="button" class="btn btn-outline-primary mr-2" data-dismiss="modal">Cancelar</button>
+        <button id="btnGuardarDatosCliente" ng-disabled="formularioMantenimientoMeta.$pristine" type="submit" class="btn btn-primary" disabled="disabled">{{labelButtonSubmit}}</button>
+    </div>
+
+</form>

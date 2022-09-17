@@ -4,9 +4,9 @@
 
     angular.module('app').controller('appController', appController);
 
-    appController.$inject = ['globalService', '$scope', 'authenticacionService'];
+    appController.$inject = ['globalService', '$scope', 'authenticacionService', 'appConst'];
 
-    function appController(globalService, $scope, authenticacionService) {
+    function appController(globalService, $scope, authenticacionService, appConst) {
 
         const vm = this;
 
@@ -30,6 +30,7 @@
             if (!angular.equals({}, globalService.usuarioLogueado)) {
 
                 vm.usuario = globalService.usuarioLogueado;
+                vm.usuario.esGerente = globalService.usuarioLogueado.idCargo === appConst.cargo.GERENTE_AGENCIA;
                 return true;
 
             }
